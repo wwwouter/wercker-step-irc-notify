@@ -1,16 +1,22 @@
 import socket, string, sys
 
 
-if len(sys.argv) < 6 :
-  print 'There should be 6 arguments'
+if len(sys.argv) < 7 :
+  print 'There should be 7 arguments'
   sys.exit(1)
 
 SERVER = str(sys.argv[1])
 PORT = int(sys.argv[2])
 NICKNAME  = str(sys.argv[3])
-CHANNEL  = str(sys.argv[4])
+CHANNEL  = "#" + str(sys.argv[4])
 MESSAGE  = str(sys.argv[5])
-CHANNEL = "#" + CHANNEL
+DOUBLEHASHES = False
+
+if(str(sys.argv[6]) == "true"):
+  DOUBLEHASHES = True
+
+if(DOUBLEHASHES):
+  CHANNEL = "#" + CHANNEL
 
 #open a socket to handle the connection
 IRC = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
