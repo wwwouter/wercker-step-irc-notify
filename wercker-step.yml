@@ -24,3 +24,5 @@ properties:
   on:
     type: string
     default: always
+  doublehashes:
+    type: string
