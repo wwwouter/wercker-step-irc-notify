@@ -16,6 +16,7 @@ Send a message to an IRC channel
 * `passed-message` - Use this option to override the default passed message.
 * `failed-message` -  Use this option to override the default failed message.
 * `on` - Possible values: `always` and `failed`, default `always`
+* `doublehashes` - Set this option to `true` for it to join the double hash version of the specified channel (##channel instead of #channel)
 
 ## Example
 
