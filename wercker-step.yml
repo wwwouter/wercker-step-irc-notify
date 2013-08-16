@@ -26,3 +26,4 @@ properties:
     default: always
   doublehashes:
     type: string
+    default: false
