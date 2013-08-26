@@ -1,16 +1,27 @@
 import socket, string, sys
 
 
-if len(sys.argv) < 6 :
-  print 'There should be 6 arguments'
+if len(sys.argv) < 8 :
+  print 'There should be 8 arguments'
   sys.exit(1)
 
 SERVER = str(sys.argv[1])
 PORT = int(sys.argv[2])
 NICKNAME  = str(sys.argv[3])
-CHANNEL  = str(sys.argv[4])
+CHANNEL  = "#" + str(sys.argv[4])
 MESSAGE  = str(sys.argv[5])
-CHANNEL = "#" + CHANNEL
+DOUBLEHASHES = False
+
+if(str(sys.argv[6]) == "true"):
+  DOUBLEHASHES = True
+
+if(DOUBLEHASHES):
+  CHANNEL = "#" + CHANNEL
+  
+NICKSERV = str(sys.argv[7])
+
+if(NICKSERV == "none"):
+  NICKSERV = None
 
 #open a socket to handle the connection
 IRC = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -31,10 +42,16 @@ def join(channel):
 def login(nickname, username='user', password = None, realname='Pythonist', hostname='Helena', servername='Server'):
     send_data("USER %s %s %s %s" % (username, hostname, servername, realname))
     send_data("NICK " + nickname)
+    
+#identify
+def nsIdent(password):
+    send_data("PRIVMSG nickserv identify %s" % (password))
 
 irc_conn()
 login(NICKNAME)
 join(CHANNEL)
+if(NICKSERV):
+    nsIdent(NICKSERV)
 
 keepRunning = True
 while (keepRunning):
